@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { useHistory } from 'react-router-dom'
+import { Form, Button, Breadcrumb } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { FaArrowAltCircleLeft } from 'react-icons/fa';
 
-export default function NewForm({ create }) {
-  const [values, setValues] = useState({ sid: '', pwd: '' });
-  const [checked, setChecked] = useState(true);
+export default function NewForm({ create, setImage }) {
+  const [values, setValues] = useState({ sid: '', pwd: '' })
+  const [checked, setChecked] = useState(true)
+  const history = useHistory()
 
   const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setValues({ ...values, [prop]: event.target.value })
   };
 
   const handleSubmit = (e) => {
@@ -22,12 +26,19 @@ export default function NewForm({ create }) {
       var image = canvas.toDataURL("image/png");
       // const i = dataURL.replace(/^data:image\/(png|jpg);base64,/, "")
       create( {...values, image } );
+      history.push(``);
     };
     img.src = `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=WIFI:S:${values.sid};P:${values.pwd};T:WPA;H:;`;
   }
 
   return (
     <div>
+      <Breadcrumb>
+        <Link to="/" className="breadcrumb-item" onClick={() => { setImage(null) }}>
+          <FaArrowAltCircleLeft className="text-info"/>
+        </Link>
+        <Breadcrumb.Item active>New</Breadcrumb.Item>
+      </Breadcrumb>
       <Form  onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicEmail">
           <Form.Label>Network</Form.Label>
@@ -43,7 +54,7 @@ export default function NewForm({ create }) {
               defaultChecked={ checked }
               onChange={() => setChecked(!checked)} />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button variant="info" type="submit" block>
           Submit
         </Button>
       </Form>

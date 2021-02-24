@@ -1,5 +1,7 @@
 import React, { useRef, useEffect } from 'react'
-import { Card, Button } from 'react-bootstrap'
+import { Card, Breadcrumb } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import { FaArrowAltCircleLeft } from 'react-icons/fa';
 
 export default function Canvas({ image, setImage }) {
   const canvasRef = useRef(null)
@@ -18,14 +20,22 @@ export default function Canvas({ image, setImage }) {
 
   return (
     <>
-      <Card style={{ maxWidth: '25rem' }}>
+      <Breadcrumb>
+        <Link to="/" className="breadcrumb-item" onClick={() => { setImage(null) }}>
+          <FaArrowAltCircleLeft className="text-info"/>
+        </Link>
+        <Breadcrumb.Item active>QR</Breadcrumb.Item>
+      </Breadcrumb>
+      <Card style={{ maxWidth: '25rem', margin: '0 auto', border: '0' }}>
         <canvas ref={canvasRef}/>
-        <Card.Body>
+        <Card.Body className="text-center">
+          <Card.Text>
+            Scan the QR code above with your camera app.
+          </Card.Text>
           <Card.Title>{ image.sid }</Card.Title>
           <Card.Subtitle className="mb-2 text-muted">{ image.pwd }</Card.Subtitle>
         </Card.Body>
       </Card>
-      <Button variant="link" onClick={() => { setImage(null)}}>Back</Button>
     </>
   )
 }

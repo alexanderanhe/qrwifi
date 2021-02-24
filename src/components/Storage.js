@@ -17,13 +17,13 @@ export default function Storage({ wifis, remove, select }) {
   return (
     <div>
       <ListGroup defaultActiveKey="#link1">
-        { wifis.map((wifi, index) => {
+        { wifis.length ? wifis.map((wifi, index) => {
             return (
               <ListGroup.Item key={ index }>
                 <Container>
                   <Row>
-                    <Col xs={10} md={11}>
-                      <Button variant="light" onClick={() => { clickHandle(wifi.sid) }} block> { wifi.sid } </Button>
+                    <Col xs={10} md={11} onClick={() => { clickHandle(wifi.sid) }} className="pointer">
+                      <span className="align-middle">{ wifi.sid }</span>
                     </Col>
                     <Col xs={2} md={1}>
                       <Button variant="outline-danger"
@@ -34,7 +34,7 @@ export default function Storage({ wifis, remove, select }) {
                 </Container>
               </ListGroup.Item>
             )
-          })
+          }) : <div className="text-center">There are no saved networks, please add new ones in the blue button above</div>
         }
       </ListGroup>
     </div>

@@ -1,20 +1,20 @@
 import React from 'react'
 import { Container } from 'react-bootstrap'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import useLocalStorage from './hooks/useLocalStorage'
 import Navigation from './components/Navigation'
 import Canvas from './components/Canvas'
 import NewForm from './components/NewForm'
-import Storage from './Storage'
+import Storage from './components/Storage'
 import './App.css'
 
 function App() {
   const [ wifis, setWifis ] = useLocalStorage('data', [])
   const [ image, setImage ] = useLocalStorage('image', [])
+  // const history = useHistory()
 
 
   const createWifi = ({sid, pwd, image}) => {
-    console.log({sid, pwd, image})
     setWifis(prevWifis => {
       let madeChange = false
       const wifis = prevWifis.map(wifi => {
@@ -31,6 +31,7 @@ function App() {
         return [...prevWifis, { sid, pwd, image }]
       }
     })
+    // setImage({sid, pwd, image})
   }
 
   const removeWifi = (sid) => {
@@ -49,15 +50,19 @@ function App() {
 
   return (
     <Router>
-      <Navigation/>
-      <Container style={{ marginTop: '1rem' }}>
+      <Navigation setImage={ setImage }/>
+      <Container>
         <Switch>
           <Route exact path="/">
-          { !image && <Storage wifis={wifis} select={selectWifi} remove={removeWifi}/> }
-            { image && <Canvas image={image} setImage={setImage} /> }
+            <Storage wifis={wifis} select={selectWifi} remove={removeWifi}/>
+            { image && <Redirect to="/qr" /> }
+          </Route>
+          <Route path="/qr">
+            { image && <Canvas image={image} setImage={ setImage }/> }
+            { !image && <Redirect push to="/" /> }
           </Route>
           <Route path="/new">
-            <NewForm create={ createWifi }/>
+            <NewForm create={ createWifi } setImage={ setImage }/>
           </Route>
         </Switch>
       </Container>

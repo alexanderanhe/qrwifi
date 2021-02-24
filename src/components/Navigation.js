@@ -1,23 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Navbar, Nav, Button } from 'react-bootstrap'
-import { FaPlusSquare, FaWifi } from 'react-icons/fa';
+import { Navbar, Button } from 'react-bootstrap'
+import { FaPlus, FaWifi } from 'react-icons/fa';
 
-export default function Navigation() {
+export default function Navigation({ setImage }) {
   return (
-    <Navbar fill bg="dark" variant="dark">
+    <Navbar>
       <Navbar.Brand>
-        <Link to="/" style={{ color: 'inherit'}}>
-          <FaWifi/> WiFi
+        <Link to="/" style={{ color: 'inherit'}} onClick={() => { setImage(null) }}>
+          <h2><FaWifi size={40}/> WiFi</h2>
         </Link>
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse className="justify-content-end">
-        <Nav.Link eventKey={2} href="#memes">
-          <Link to="/new" style={{ color: 'inherit'}}>
-            <Button variant="outline-info" style={{ border: 'none' }}><FaPlusSquare/></Button>
-          </Link>
-        </Nav.Link>
+        <Link to="/new" style={{ color: 'inherit'}}>
+          <Button variant="outline-info" style={{ border: 'none' }}><FaPlus/></Button>
+        </Link>
         </Navbar.Collapse>
     </Navbar>
   )
