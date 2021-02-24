@@ -59,7 +59,7 @@ function App() {
           </Route>
           <Route path="/qr">
             { image && <Canvas image={image} setImage={ setImage }/> }
-            { !image && <Redirect push to="/" /> }
+            { !image && <Redirect to="/" /> }
           </Route>
           <Route path="/new">
             <NewForm create={ createWifi } setImage={ setImage }/>
