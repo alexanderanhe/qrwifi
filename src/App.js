@@ -10,7 +10,7 @@ import './App.css'
 
 function App() {
   const [ wifis, setWifis ] = useLocalStorage('data', [])
-  const [ image, setImage ] = useLocalStorage('image', [])
+  const [ image, setImage ] = useLocalStorage('image', null)
   // const history = useHistory()
 
 
