@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { Form, Button, Breadcrumb } from 'react-bootstrap'
+import { Form, Button, Breadcrumb, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
 
@@ -40,20 +40,45 @@ export default function NewForm({ create, setImage }) {
         <Breadcrumb.Item active>New</Breadcrumb.Item>
       </Breadcrumb>
       <Form  onSubmit={handleSubmit}>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formEmail">
           <Form.Label>Network</Form.Label>
           <Form.Control type="text" placeholder="Write Network" onChange={handleChange('sid')} />
         </Form.Group>
 
-        <Form.Group controlId="formBasicPassword">
+        <Form.Group controlId="formPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control type={ checked ? 'text' : 'password' }  onChange={handleChange('pwd')} placeholder="Password" />
         </Form.Group>
-        <Form.Group controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Show me password"
-              defaultChecked={ checked }
-              onChange={() => setChecked(!checked)} />
+        <Form.Group controlId="formCheckbox">
+          <Row>
+            <Col>
+              <Form.Check type="checkbox" label="Show me password"
+                  defaultChecked={ checked }
+                  onChange={() => setChecked(!checked)} />
+            </Col>
+            <Col>
+              <Form.Group controlId="formCheckbox2" className="text-right">
+                <Form.Check type="checkbox" label="Hidden" disabled />
+              </Form.Group>
+            </Col>
+          </Row>
         </Form.Group>
+
+        <Form.Group controlId="formEncrytion">
+          <Form.Label>Encryption</Form.Label>
+          <Row  className="mb-3">
+            <Col>
+              <Form.Check custom type="radio" id="encryption_none" name="encryption" label={`Ninguno`} disabled />
+            </Col>
+            <Col>
+              <Form.Check custom type="radio" id="encryption_wpa" name="encryption" label={'WPA/WPA2'} defaultChecked={ true } disabled />
+            </Col>
+            <Col>
+              <Form.Check custom type="radio" id="encryption_wep" name="encryption" label={'WEP'} disabled />
+            </Col>
+          </Row>
+        </Form.Group>
+
         <Button variant="info" type="submit" block>
           Submit
         </Button>
