@@ -1,6 +1,6 @@
 {
-  "short_name": "QRWiFi",
-  "name": "WiFi QR",
+  "short_name": "WiFi",
+  "name": "WiFi QR list",
   "icons": [
     {
       "src": "favicon.ico",
